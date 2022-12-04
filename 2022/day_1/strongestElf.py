@@ -19,3 +19,4 @@ top3_stronges_elfes = list(sorted(summed_elfes,reverse=True))[:3]
 
 print(strongest_elf)
 print(top3_stronges_elfes)
+print(sum(top3_stronges_elfes))
