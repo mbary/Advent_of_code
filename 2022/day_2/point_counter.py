@@ -30,7 +30,7 @@ fig_point_map = {"A":1
 
 result_point_map = {"win":6
                 ,   "draw":3
-                ,   "loss":0}                
+                ,   "loss":0}
 
 # Beating mapping
 # Key beats value
@@ -38,33 +38,60 @@ beat_map = {"A":"C"
         ,   "B":"A"
         ,   "C":"B"}
 
-strategy = parse_input("./input.txt")   
-     
-strategy = convert_data(strategy)
+lose_map = {"C":"A",
+            "A":"B",
+            "B":"C"}
 
-print(strategy[0])
-print(strategy[0][0], strategy[0][1])
+strategy = parse_input("./input.txt")
+
+# strategy = convert_data(strategy)
+
+# print(strategy[0])
+# print(strategy[0][0], strategy[0][1])
 
 class gamblingElf:
     def __init__(self,strategy) -> None:
         self.strategy = strategy
         self.total_score = 0
-    
+
     def _play(self, play):
         opponent = play[0]
-        us = play[1]
+        # us = play[1]
+        result = play[1]
 
-        #check if draw
-        if opponent == us:
-            return 3 + fig_point_map[us]
+        if result == "Y":
+            return self._draw(opponent)
 
-        # check if win
-        elif opponent == beat_map[us]:
-            return 6 + fig_point_map[us]
+        elif result == "X":
+            return self._lose(opponent)
+
+        elif result == "Z":
+            return self._win(opponent)
 
         else:
-            return 0 + fig_point_map[us]
+            print("unknown input")
+        # #check if draw
+        # if opponent == us:
+        #     return 3 + fig_point_map[us]
 
+        # # check if win
+        # elif opponent == beat_map[us]:
+        #     return 6 + fig_point_map[us]
+
+        # else:
+        #     return 0 + fig_point_map[us]
+
+    @staticmethod
+    def _win(op_move):
+        return 6 + fig_point_map[lose_map[op_move]]
+
+    @staticmethod
+    def _lose(op_move):
+        return 0 + fig_point_map[beat_map[op_move]]
+
+    @staticmethod
+    def _draw(op_move):
+        return 3 + fig_point_map[op_move]
 
 
     def win_estimate(self):
@@ -72,7 +99,7 @@ class gamblingElf:
             result = self._play(play)
             self.total_score += result
             print(self.total_score)
-        
+
         print(f"The final Result is: {self.total_score}")
 
 
