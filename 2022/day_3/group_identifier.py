@@ -10,7 +10,7 @@ def parse_input(file_path):
 
 def get_groups(my_list):
     
-    groups = [my_list[x:x+3] for x in range(0, len(my_list),3)]    
+    groups = [[y[0] for y in my_list[x:x+3]] for x in range(0, len(my_list),3)]    
     return groups
 
 data = parse_input("./input2.txt")
@@ -25,15 +25,13 @@ print(data[3:6])
 def get_allocationn(data):
     all_uniques = []
     for x in data:
-        print(x)
         a,b,c = set(x[0]),set(x[1]), set(x[2])
         int_all = a.intersection(b,c)
-        all_uniques.append(int_all)
-        print(int_all)
+        all_uniques.append(list(int_all)[0])
     return all_uniques
 
-all_allocations = get_allocationn(groups[:5])
+all_allocations = get_allocationn(groups)
 
-# print(all_allocations)
-# point_sum = 
-# print(point_sum)
+print(all_allocations)
+point_sum = sum([letter_dict[x] for x in all_allocations])
+print(point_sum)
