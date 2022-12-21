@@ -16,7 +16,20 @@ class Stack:
         self.containers.append(crate)
 
 
+class Stack2:
 
+    def __init__(self, object_list) -> None:
+        self.containers = object_list
+        
+    
+    # def fill_containers(self, object_list: List) -> None:
+    #     self.containers.append(object_list)
+    #     self.containers = [ x for x in self.containers]
+    def remove_crate(self,num: int):
+        return self.containers[-num:]
+    
+    def add_crate(self, crate):
+        return self.containers+crate
 
 
 # class Crane:
