@@ -16,6 +16,7 @@ print("row: ",row)
 
 
 special_chars = set(chain.from_iterable([[char for char in re.findall(r"(\W)", row.strip("\n")) if char != '.'] for row in data]))
+print(len(list(chain.from_iterable([[char for char in re.findall(r"(\W)", row.strip("\n")) if char != '.'] for row in data]))))
 print(special_chars)
 rows_2_check = {}
 cur_row_idx = 0
@@ -35,6 +36,7 @@ num_rows = {}
 num_row_idx = 0
 
 def check_left(row,col):
+    print(row+1,col)
     if data[row][col-1].isnumeric():
         num = re.findall(r"(\d+)", data[row][col-3: col])
         if num:
@@ -44,6 +46,7 @@ def check_left(row,col):
             return int(num[0])
 
 def check_right(row,col):
+    print(row+1,col)
     if data[row][col+1].isnumeric():
         num = re.findall(r"(\d+)", data[row][col+1: col + 4])
         if num:
@@ -53,6 +56,7 @@ def check_right(row,col):
             return int(num[0])
         
 def check_up(row,col):
+    print(row+1,col)
     if data[row-1][col].isnumeric():
         num = re.findall(r"(\d+)", data[row-1][col-2:col+2])
         print("up")
@@ -61,6 +65,7 @@ def check_up(row,col):
         return int(num[0])
 
 def check_down(row,col):
+    print(row+1,col)
     if data[row+1][col].isnumeric():
         num = re.findall(r"(\d+)", data[row+1][col-2:col+2])
         print("down")
@@ -70,6 +75,8 @@ def check_down(row,col):
     
 
 def check_top_right(row,col):
+    print(row+1,col)
+    print(row,col)
     if data[row-1][col+1].isnumeric():
         num = re.findall(r"(\d+)", data[row-1][col+1:col+4])
         print("top right")
@@ -79,6 +86,7 @@ def check_top_right(row,col):
 
 
 def check_top_left(row,col):
+    print(row+1,col)
     if data[row-1][col-1].isnumeric():
         num = re.findall(r"(\d+)", data[row-1][col-3:col])
         print("top left")
@@ -88,6 +96,7 @@ def check_top_left(row,col):
 
 
 def check_bottom_left(row,col):
+    print(row+1,col)
     if data[row+1][col-1].isnumeric():
         num = re.findall(r"(\d+)", data[row+1][col-3:col])
         print("top left")
@@ -96,6 +105,7 @@ def check_bottom_left(row,col):
         return int(num[0])
 
 def check_bottom_right(row,col):
+    print(row+1,col)
     if data[row+1][col+1].isnumeric():
         num = re.findall(r"(\d+)", data[row+1][col+1:col+4])
         print("top right")
@@ -132,9 +142,11 @@ for row_num in rows_2_check.keys():
             nums.append(right)
 print(nums)
 print(sum(nums))
+print(len(nums))
 
 
-
+print(len(list(chain.from_iterable([[char for char in re.findall(r"(\W)", row.strip("\n")) if char != '.'] for row in data]))))
+print(special_chars)
 
 
 
