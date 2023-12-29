@@ -1,5 +1,5 @@
 import re
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 from pprint import pprint
 
 
@@ -32,11 +32,7 @@ class Gambler:
         for card_no in self.cards.keys():
             winning_no = set(self.cards[card_no][0])
             selected_no = set(self.cards[card_no][1])
-            print('winning ', winning_no)
-            print('sel ', selected_no)
-            print(winning_no.intersection(selected_no))
             matching_numbers = len(winning_no.intersection(selected_no))
-            print(matching_numbers)
 
             if matching_numbers:
                 card_value = 1
@@ -46,9 +42,37 @@ class Gambler:
                 point_count += card_value
 
         return point_count
+    
+    def _get_cards(self, card_no):
+        winning_no = set(self.cards[card_no][0])
+        selected_no = set(self.cards[card_no][1])
 
+        return len(selected_no.intersection(winning_no))
+    
+    def calc_no_cards(self):
 
+        card_count = 0
+        win_dict = defaultdict(lambda: 0)
+
+        for card_no in self.cards.keys():
+
+            matched_cards = self._get_cards(card_no)
+            win_dict[f"Card {card_no}"] += 1 
+            repeats = win_dict[f"Card {card_no}"]
+
+            if not matched_cards:
+                continue
+
+            for win in range(card_no+1, card_no + matched_cards + 1):
+                win_dict[f"Card {win}"] += repeats
+        
+        for val in win_dict.values():
+            card_count += val
+       
+        return card_count
 
 a = Gambler("input.csv")
 point_count = a.calc_card_points()
 pprint(point_count)
+card_count = a.calc_no_cards()
+print(card_count)
